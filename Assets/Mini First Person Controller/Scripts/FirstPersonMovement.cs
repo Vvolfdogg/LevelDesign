@@ -29,7 +29,7 @@ public class FirstPersonMovement : MonoBehaviour
     private void Update()
     {
         oxygen -= oxygenMinus;
-        Debug.Log("Oxygen:" + oxygen.ToString());
+        //Debug.Log("Oxygen:" + oxygen.ToString());
     }
 
     void FixedUpdate()
@@ -57,6 +57,16 @@ public class FirstPersonMovement : MonoBehaviour
         {
             oxygen += 30f;
             Destroy(other.gameObject);
+        }
+    }
+
+    public void PlayerTakeDamage(float dmgAmount)
+    {
+        hp -= dmgAmount;
+        if(hp <= 0) 
+        {
+            Debug.Log("Game Over!");
+            Debug.Break();
         }
     }
 }
