@@ -10,6 +10,9 @@ public class FirstPersonMovement : MonoBehaviour
     public bool IsRunning { get; private set; }
     public float runSpeed = 9;
     public KeyCode runningKey = KeyCode.LeftShift;
+    private float hp = 100f;
+    private float oxygen = 100f;
+    [SerializeField] float oxygenMinus = 0.005f;
 
     Rigidbody rigidbody;
     /// <summary> Functions to override movement speed. Will use the last added override. </summary>
@@ -21,6 +24,12 @@ public class FirstPersonMovement : MonoBehaviour
     {
         // Get the rigidbody on this.
         rigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        oxygen -= oxygenMinus;
+        Debug.Log("Oxygen:" + oxygen.ToString());
     }
 
     void FixedUpdate()
@@ -40,5 +49,14 @@ public class FirstPersonMovement : MonoBehaviour
 
         // Apply movement.
         rigidbody.velocity = transform.rotation * new Vector3(targetVelocity.x, rigidbody.velocity.y, targetVelocity.y);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Bubble"))
+        {
+            oxygen += 30f;
+            Destroy(other.gameObject);
+        }
     }
 }

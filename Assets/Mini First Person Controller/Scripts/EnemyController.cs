@@ -19,21 +19,21 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float sightRange, attackRange;
     private bool playerInSightRange, playerInAttackRange;
 
-    [SerializeField] float health = 1f;
+    [SerializeField] int health = 3;
     [SerializeField] float speed;
     [SerializeField] float timeBetweenNewDestinations;
     private bool waitingBeforeWalking = false;
-    public void TakeDamage(float amount)
+    public void TakeDamage(int amount)
     {
         health -= amount;
-        if (health <= 0f)
+        if (health == 0)
         {
             Die();
         }
     }
 
 
-    private void Die()
+    public void Die()
     {
         Destroy(gameObject);
     }

@@ -9,6 +9,8 @@ public class FirstPersonLook : MonoBehaviour
 
     Vector2 velocity;
     Vector2 frameVelocity;
+    private RaycastHit[] shootHits;
+    [SerializeField] float gunRange = 20f;
 
 
     void Reset()
@@ -35,5 +37,29 @@ public class FirstPersonLook : MonoBehaviour
         // Rotate camera up-down and controller left-right from velocity.
         transform.localRotation = Quaternion.AngleAxis(-velocity.y, Vector3.right);
         character.localRotation = Quaternion.AngleAxis(velocity.x, Vector3.up);
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Shoot();
+        }
+    }
+
+    private void Shoot()
+    {
+        Vector3 direction = transform.forward;
+        Debug.DrawRay(transform.position, direction * 10, Color.red, 2);
+        shootHits = Physics.RaycastAll(transform.position, direction, gunRange);
+        for (int i = 0; i < shootHits.Length; i++)
+        {
+            RaycastHit hit = shootHits[i];
+            EnemyController enemy = hit.collider.gameObject.GetComponent<EnemyController>();
+            if (enemy != null) enemy.TakeDamage(1);
+            else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Bubble"))
+            {
+                hit.collider.gameObject.GetComponent<SphereCollider>().radius = 12f;
+                hit.collider.gameObject.GetComponent<Bubble>().RadiusKill();
+            }
+        }
+
     }
 }
