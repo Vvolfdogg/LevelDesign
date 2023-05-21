@@ -22,6 +22,9 @@ public class Bubble : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(collider.center, collider.radius);
         foreach (var hitCollider in hitColliders)
         {
+            //Debug.Log(collider.center);
+            //Debug.Log(collider.radius);
+            //Debug.Log(hitCollider.gameObject.name);
             if(hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 hitCollider.gameObject.GetComponent<EnemyController>().Die();

@@ -29,7 +29,7 @@ public class FirstPersonMovement : MonoBehaviour
     private void Update()
     {
         oxygen -= oxygenMinus;
-        //Debug.Log("Oxygen:" + oxygen.ToString());
+        Debug.Log("Oxygen:" + oxygen.ToString());
     }
 
     void FixedUpdate()

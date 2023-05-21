@@ -29,5 +29,6 @@ public class Rocks : MonoBehaviour
         {
             Destroy(bossGO);
         }
+        Destroy(gameObject);
     }
 }

@@ -27,5 +27,6 @@ public class SimpleRocks : MonoBehaviour
         {
             Destroy(bossGO);
         }
+        Destroy(gameObject);
     }
 }
